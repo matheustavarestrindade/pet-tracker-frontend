@@ -1,14 +1,18 @@
-<script lang="typescript">
+<script lang="ts">
     import BackButton from "./components/BackButton.svelte";
 
     import Container from "./components/Container.svelte";
     import Footer from "./components/Footer.svelte";
-    import Loader from "./components/Loader.svelte";
     import WifiConnection from "./pages/wifi_connection/WifiConnection.svelte";
     import WifiSelector from "./pages/wifi_selector/WifiSelector.svelte";
     import type { INetwork } from "./pages/wifi_selector/WifiSelectorTypes";
 
     let selected_network: INetwork | undefined = undefined;
+    // let selected_network: INetwork | undefined = {
+    //     has_password: true,
+    //     ssid: "",
+
+    // };
 
     const onNetworkSelect = (event: CustomEvent<INetwork>) => {
         selected_network = event.detail;

@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
     import DogIcon from "./DogIcon.svelte";
     export let loadingText: string | undefined = "Carregando...";
 </script>

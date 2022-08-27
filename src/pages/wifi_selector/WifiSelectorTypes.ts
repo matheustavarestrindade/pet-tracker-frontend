@@ -1,5 +1,5 @@
 export interface INetwork {
     ssid: string;
-    signal_strength: number;
+    rssi: number;
     has_password: boolean;
 }

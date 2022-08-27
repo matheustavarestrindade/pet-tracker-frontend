@@ -1,24 +1,8 @@
-<script lang="typescript">
+<script lang="ts">
     import type { INetwork } from "./WifiSelectorTypes";
     import { createEventDispatcher } from "svelte";
+    export let networks: INetwork[] = [];
     const onNetworkSelect = createEventDispatcher<{ select_network: INetwork }>();
-    const networks: INetwork[] = [
-        { ssid: "Rede 1", signal_strength: -50, has_password: false },
-        { ssid: "Rede 2", signal_strength: -60, has_password: true },
-        { ssid: "Rede 3", signal_strength: -70, has_password: true },
-        { ssid: "Rede 4", signal_strength: -80, has_password: false },
-        { ssid: "Rede with a realy realy realy realy realy long names", signal_strength: -80, has_password: true },
-        { ssid: "Rede 5", signal_strength: -80, has_password: false },
-        { ssid: "Rede 6", signal_strength: -80, has_password: false },
-        { ssid: "Rede 7", signal_strength: -80, has_password: false },
-        { ssid: "Rede 8", signal_strength: -80, has_password: false },
-        { ssid: "Rede 9", signal_strength: -80, has_password: false },
-        { ssid: "Rede 10", signal_strength: -80, has_password: false },
-        { ssid: "Rede 11", signal_strength: -80, has_password: false },
-        { ssid: "Rede 12", signal_strength: -80, has_password: false },
-        { ssid: "Rede 13", signal_strength: -80, has_password: false },
-        { ssid: "Rede 14", signal_strength: -80, has_password: false },
-    ];
 </script>
 
 <div id="networks">
@@ -26,7 +10,7 @@
         <div class="network" on:click={() => onNetworkSelect("select_network", network)}>
             <div class="ssid">{network.ssid}</div>
             <div class="icons">
-                <div class="signal-icon {network.signal_strength >= -50 ? 'strong' : network.signal_strength >= -70 ? 'medium' : 'weak'}">
+                <div class="signal-icon {network.rssi >= -50 ? 'strong' : network.rssi >= -70 ? 'medium' : 'weak'}">
                     <div class="signal-bar" />
                     <div class="signal-bar" />
                     <div class="signal-bar" />

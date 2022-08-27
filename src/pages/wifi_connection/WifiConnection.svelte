@@ -1,18 +1,44 @@
-<script lang="typescript">
+<script lang="ts">
+    import Loader from "../../components/Loader.svelte";
+
     import Title from "../../components/Title.svelte";
     import type { INetwork } from "../wifi_selector/WifiSelectorTypes";
     export let selectedNetwork: INetwork;
+
+    let password = "";
+    let loading = false;
+
+    const connect = async () => {
+        try {
+            loading = true;
+            const formData = new FormData();
+            formData.append("ssid", selectedNetwork.ssid);
+            formData.append("password", password);
+            const response = await fetch("/connect?ssid=&password=", {
+                method: "POST",
+                body: formData,
+            });
+            const jsonResponse = await response.json();
+            console.log(jsonResponse);
+        } catch (error) {
+            console.error("Cannot connect to network");
+        }
+        loading = false;
+    };
 </script>
 
 <div id="wifi-connection">
     <Title title={"Conectando a rede"} subtitle={selectedNetwork.ssid} />
+    {#if loading}
+        <Loader loadingText="Conectando..." />
+    {/if}
     <div id="wifi-credentials">
         {#if selectedNetwork.has_password}
             <div id="password-input">
-                <input type="password" placeholder="Digite a senha da rede Wifi" />
+                <input type="password" bind:value={password} placeholder="Digite a senha da rede Wifi" />
             </div>
         {/if}
-        <button id="connect-button">Conectar</button>
+        <button id="connect-button" on:click={connect}>Conectar</button>
     </div>
 </div>
 
